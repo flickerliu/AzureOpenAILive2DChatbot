@@ -4,4 +4,3 @@ under the terms of the Live2D Proprietary Software License Agreement:
 - live2dcubismcore.d.ts
 - live2dcubismcore.js
 - live2dcubismcore.min.js
-cd
