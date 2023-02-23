@@ -2,6 +2,8 @@ import { LAppPal } from "./lapppal";
 import { getWaveBlob } from "webm-to-wav-converter";
 import { LANGUAGE_TO_VOICE_MAPPING_LIST } from "./languagetovoicemapping";
 
+export let txtSubtitle: HTMLSpanElement = null;
+export let divSubtitle: HTMLElement = null;
 
 export class AzureAi {
   private _openaiurl: string;
@@ -12,15 +14,18 @@ export class AzureAi {
   private _inProgress: boolean;
 
   constructor() {
-    const config = (document.getElementById("config") as any).value;
+    txtSubtitle = document.getElementById("txtSubtitle");
+    divSubtitle = document.getElementById("divSubtitle");
 
-    if (config !== "") {
-      const json = JSON.parse(config);
-      this._openaiurl = json.openaiurl;
-      this._openaipikey = json.openaipikey;
-      this._ttsregion = json.ttsregion;
-      this._ttsapikey = json.ttsapikey;
-    }
+    //const config = (document.getElementById("config") as any).value;
+    const config = "{\"openaiurl\":\"\",\"openaipikey\":\"\",\"ttsregion\":\"\",\"ttsapikey\":\"\"}";
+    //if (config !== "") {
+    const json = JSON.parse(config);
+    this._openaiurl = json.openaiurl;
+    this._openaipikey = json.openaipikey;
+    this._ttsregion = json.ttsregion;
+    this._ttsapikey = json.ttsapikey;
+    //}
 
     this._inProgress = false;
   }
@@ -33,6 +38,8 @@ export class AzureAi {
 
     const conversations = (document.getElementById("conversations") as any).value;
     LAppPal.printMessage(prompt);
+    divSubtitle.setAttribute("style", "display: block;");
+    txtSubtitle.innerText = prompt;
 
     const conversation = conversations + "\n\n## " + prompt
     const m = {
@@ -54,7 +61,14 @@ export class AzureAi {
       body: JSON.stringify(m)
     });
     const json = await repsonse.json();
-    const answer: string = json.choices[0].text
+    let answer: string = json.choices[0].text;
+
+    const newLine2 = "\n\n";
+    const newLine2Index = answer.indexOf(newLine2);
+    if (newLine2Index > -1) {
+      answer = answer.substring(newLine2Index + 1);
+    }
+
     LAppPal.printMessage(answer);
     (document.getElementById("reply") as any).value = answer;
     (document.getElementById("conversations") as any).value = conversations + "\n\n" + answer;
@@ -99,6 +113,7 @@ export class AzureAi {
     const audio: any = document.getElementById('voice');
     audio.src = url;
     LAppPal.printMessage(`Load Text to Speech url`);
+    txtSubtitle.innerText += "\n" + text;
     this._inProgress = false;
     return url;
   }

@@ -54,6 +54,9 @@ export class LAppDelegate {
   public initialize(): boolean {
     // キャンバスの作成
     canvas = document.createElement('canvas');
+    canvas.id = "myCanvas";
+    canvas.style.position = "absolute";
+    canvas.style.zIndex = "-1";
     if (LAppDefine.CanvasSize === 'auto') {
       this._resizeCanvas();
     } else {
