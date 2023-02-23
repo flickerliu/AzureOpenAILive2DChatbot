@@ -8,6 +8,7 @@
 import { CubismMatrix44 } from '@framework/math/cubismmatrix44';
 import { ACubismMotion } from '@framework/motion/acubismmotion';
 import { csmVector } from '@framework/type/csmvector';
+import { AzureAi } from './azureai';
 
 import * as LAppDefine from './lappdefine';
 import { canvas } from './lappdelegate';
@@ -115,13 +116,50 @@ export class LAppLive2DManager {
             `[APP]hit area: [${LAppDefine.HitAreaNameBody}]`
           );
         }
-        this._models
-          .at(i)
-          .startRandomMotion(
-            LAppDefine.MotionGroupTapBody,
-            LAppDefine.PriorityNormal,
-            this._finishedMotion
-          );
+
+        const prompt: string = (document.getElementById("prompt") as any).value;
+        const language: string = (document.getElementById("language") as any).value;
+        const azureAi = new AzureAi();
+        azureAi.getOpenAiAnswer(prompt)
+          .then(ans => azureAi.getSpeechUrl(language, ans))
+          .then(url => {
+            this._models.at(i)._wavFileHandler.loadWavFile(url);
+            this._models
+              .at(i)
+              .startRandomMotion(
+                LAppDefine.MotionGroupTapBody,
+                LAppDefine.PriorityNormal,
+                this._finishedMotion
+              );
+          });
+
+      }
+    }
+  }
+
+  public startVoiceConversation(language: string, data: Blob) {
+    for (let i = 0; i < this._models.getSize(); i++) {
+      if (LAppDefine.DebugLogEnable) {
+        LAppPal.printMessage(
+          `startConversation`
+        );
+        const azureAi = new AzureAi();
+
+        azureAi.getTextFromSpeech(language, data)
+          .then(text => {
+            (document.getElementById("prompt") as any).value = text;
+            return azureAi.getOpenAiAnswer(text);
+          }).then(ans => azureAi.getSpeechUrl(language, ans))
+          .then(url => {
+            this._models.at(i)._wavFileHandler.loadWavFile(url);
+            this._models
+              .at(i)
+              .startRandomMotion(
+                LAppDefine.MotionGroupTapBody,
+                LAppDefine.PriorityNormal,
+                this._finishedMotion
+              );
+          });
       }
     }
   }

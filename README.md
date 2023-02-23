@@ -1,9 +1,21 @@
 
-# Live2DTutor
+# Live2D Virtual Assistant
 
 This is a sample implementation of an application that displays models output by Live2D Cubism 4 Editor from Cubism Web Samples with Azure OpenAI and Azure Text to Speech.
 
 It is used in conjunction with the Cubism Web Framework and Live2D Cubism Core.
+
+![Live2D Azure OpenAI Chatbot Overview](Images/Live2DAzureOpenAIChatbot.png "Overview")
+
+## Demo
+For English
+
+[![Talking with Azure OpenAI Live2D Virtual Assistant with Azure Speech Services](https://img.youtube.com/vi/z-Fl_kzrDpA/0.jpg)](https://youtu.be/z-Fl_kzrDpA)
+
+For Cantonese
+
+[![廣東話互動對答Azure OpenAI 加 Azure語音服務Live2D虛擬助理示範](https://img.youtube.com/vi/0291zqM4da0/0.jpg)](https://youtu.be/0291zqM4da0)
+
 
 
 ## License
