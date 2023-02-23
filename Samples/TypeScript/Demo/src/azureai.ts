@@ -80,7 +80,14 @@ export class AzureAi {
   </voice>
 </speak>`;
 
-    const response = await fetch(`https://${this._ttsregion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+      var fetchurl = `https://${this._ttsregion}.tts.speech.microsoft.com/cognitiveservices/v1`;
+      if (this._ttsregion.includes("china"))
+      {
+        //china azure endpoint
+        fetchurl = `https://${this._ttsregion}.tts.speech.azure.cn/cognitiveservices/v1`;
+      }
+
+      const response = await fetch(fetchurl, {
       method: 'POST',
       headers: requestHeaders,
       body: ssml
@@ -107,11 +114,19 @@ export class AzureAi {
 
     const wav = await getWaveBlob(data, false);
 
-    const response = await fetch(`https://${this._ttsregion}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=${language}`, {
+    var fetchurl = `https://${this._ttsregion}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=${language}`;
+    if (this._ttsregion.includes("china"))
+    {
+      //china azure endpoint
+      fetchurl = `https://${this._ttsregion}.stt.speech.azure.cn/speech/recognition/conversation/cognitiveservices/v1?language=${language}`;
+    }
+
+    const response = await fetch(fetchurl, {
       method: 'POST',
       headers: requestHeaders,
       body: wav
     });
+
     const json = await response.json();
     return json.DisplayText;
   }
