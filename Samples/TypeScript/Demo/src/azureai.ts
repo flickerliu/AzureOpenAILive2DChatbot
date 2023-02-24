@@ -19,6 +19,7 @@ export class AzureAi {
 
     //const config = (document.getElementById("config") as any).value;
     const config = "{\"openaiurl\":\"\",\"openaipikey\":\"\",\"ttsregion\":\"\",\"ttsapikey\":\"\"}";
+    
     //if (config !== "") {
     const json = JSON.parse(config);
     this._openaiurl = json.openaiurl;
@@ -40,7 +41,7 @@ export class AzureAi {
     LAppPal.printMessage(prompt);
     divSubtitle.setAttribute("style", "display: block;");
     //txtSubtitle.innerText = prompt;
-    txtSubtitle.innerHTML = `<span class=\"question-text\">我说：${prompt}</span><br />`;
+    txtSubtitle.innerHTML = `<span class=\"question-text\">${prompt}</span><br />`;
 
     const conversation = conversations + "\n\n## " + prompt
     const m = {
@@ -115,7 +116,7 @@ export class AzureAi {
     audio.src = url;
     LAppPal.printMessage(`Load Text to Speech url`);
     //txtSubtitle.innerText += "\n" + text;
-    txtSubtitle.innerHTML += `<span class=\"answer-text\">她说：${text}</span>`;
+    txtSubtitle.innerHTML += `<span class=\"answer-text\">${text}</span>`;
     this._inProgress = false;
     return url;
   }
