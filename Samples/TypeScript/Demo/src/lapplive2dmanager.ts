@@ -265,7 +265,7 @@ export class LAppLive2DManager {
   constructor() {
     this._viewMatrix = new CubismMatrix44();
     this._models = new csmVector<LAppModel>();
-    this._sceneIndex = 1;
+    this._sceneIndex = 0;
     this.changeScene(this._sceneIndex);
   }
 
