@@ -18,8 +18,8 @@ export class AzureAi {
     divSubtitle = document.getElementById("divSubtitle");
 
     //const config = (document.getElementById("config") as any).value;
-    const config = "{\"openaiurl\":\"\",\"openaipikey\":\"\",\"ttsregion\":\"\",\"ttsapikey\":\"\"}";
-    
+    const config = "{\"openaiurl\":\",\"openaipikey\":\"\",\"ttsregion\":\"\",\"ttsapikey\":\"\"}";
+
     //if (config !== "") {
     const json = JSON.parse(config);
     this._openaiurl = json.openaiurl;
@@ -87,7 +87,11 @@ export class AzureAi {
     requestHeaders.set('X-Microsoft-OutputFormat', 'riff-8khz-16bit-mono-pcm');
     requestHeaders.set('Ocp-Apim-Subscription-Key', this._ttsapikey);
 
-    const voice = LANGUAGE_TO_VOICE_MAPPING_LIST.find(c => c.voice.startsWith(language) && c.IsMale === false).voice;
+    var voice = "zh-CN-XiaoshuangNeural";
+    if (!language.startsWith("zh-CN"))
+    {
+        voice = LANGUAGE_TO_VOICE_MAPPING_LIST.find(c => c.voice.startsWith(language) && c.IsMale === false).voice;
+    }
 
     const ssml = `
 <speak version=\'1.0\' xml:lang=\'${language}\'>

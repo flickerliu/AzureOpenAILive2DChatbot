@@ -170,7 +170,7 @@ export class LAppLive2DManager {
         LAppPal.printMessage(
           `startGetAnswer`
         );
-      
+
       const azureAi = new AzureAi();
 
       azureAi.getOpenAiAnswer(text).then(ans => azureAi.getSpeechUrl(language, ans))
@@ -184,7 +184,7 @@ export class LAppLive2DManager {
               this._finishedMotion
             );
         });
-      }   
+      }
     }
   }
 
@@ -265,7 +265,7 @@ export class LAppLive2DManager {
   constructor() {
     this._viewMatrix = new CubismMatrix44();
     this._models = new csmVector<LAppModel>();
-    this._sceneIndex = 0;
+    this._sceneIndex = 1;
     this.changeScene(this._sceneIndex);
   }
 
