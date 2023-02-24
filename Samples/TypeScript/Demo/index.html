@@ -66,18 +66,28 @@
       position: absolute; 
       bottom: 200px; 
       width: 100%;
-      text-align: center; 
+      text-align: left; 
       background-color: rgba(0,0,0,0.2); 
       color: white; 
       font-size: 20px; 
       line-height: 40px;
       
     }
-    .div-subtitle span {
+    #txtSubtitle {
       display: block;
       width: 960px;
       margin: 0 auto; 
       padding: 15px;
+    }
+
+    .question-text {
+      color: #00bbff;
+      padding: 0 10px;
+    }
+
+    .answer-text {
+      color: #ffff55;
+      padding: 0 10px;
     }
   </style>
   <!-- Pollyfill script -->
@@ -258,7 +268,7 @@
   <audio id="voice"></audio>
   <div style="height: 100vh; width: 100vw; z-index: 999; background-color: rgba(0,0,0,0); position:absolute">
     <div id="divSubtitle" class="div-subtitle" style="display: none;">
-      <span id="txtSubtitle"></span>
+      <div id="txtSubtitle"></div>
     </div>
     <div style="position: absolute; bottom: 50px; width: 100%; text-align: center;">
       <input type="button" id="recButton" class="recrodingButton"></input>

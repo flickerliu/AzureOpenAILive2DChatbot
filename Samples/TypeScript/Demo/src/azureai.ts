@@ -39,7 +39,8 @@ export class AzureAi {
     const conversations = (document.getElementById("conversations") as any).value;
     LAppPal.printMessage(prompt);
     divSubtitle.setAttribute("style", "display: block;");
-    txtSubtitle.innerText = prompt;
+    //txtSubtitle.innerText = prompt;
+    txtSubtitle.innerHTML = `<span class=\"question-text\">我说：${prompt}</span><br />`;
 
     const conversation = conversations + "\n\n## " + prompt
     const m = {
@@ -113,7 +114,8 @@ export class AzureAi {
     const audio: any = document.getElementById('voice');
     audio.src = url;
     LAppPal.printMessage(`Load Text to Speech url`);
-    txtSubtitle.innerText += "\n" + text;
+    //txtSubtitle.innerText += "\n" + text;
+    txtSubtitle.innerHTML += `<span class=\"answer-text\">她说：${text}</span>`;
     this._inProgress = false;
     return url;
   }
