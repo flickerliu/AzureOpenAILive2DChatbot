@@ -263,6 +263,10 @@ export class LAppDelegate {
     LAppLive2DManager.getInstance().startVoiceConversation(language, data);
   }
 
+  public startGetAnswer(language: string, text: string) {
+    LAppLive2DManager.getInstance().startGetAnswer(language, text);
+  }
+
   /**
    * コンストラクタ
    */
