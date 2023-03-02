@@ -1,3 +1,4 @@
+import * as ApiConfig from "./apiconfig";
 import { LAppPal } from "./lapppal";
 import { getWaveBlob } from "webm-to-wav-converter";
 import { LANGUAGE_TO_VOICE_MAPPING_LIST } from "./languagetovoicemapping";
@@ -17,16 +18,10 @@ export class AzureAi {
     txtSubtitle = document.getElementById("txtSubtitle");
     divSubtitle = document.getElementById("divSubtitle");
 
-    //const config = (document.getElementById("config") as any).value;
-    const config = "{\"openaiurl\":\",\"openaipikey\":\"\",\"ttsregion\":\"\",\"ttsapikey\":\"\"}";
-
-    //if (config !== "") {
-    const json = JSON.parse(config);
-    this._openaiurl = json.openaiurl;
-    this._openaipikey = json.openaipikey;
-    this._ttsregion = json.ttsregion;
-    this._ttsapikey = json.ttsapikey;
-    //}
+    this._openaiurl = ApiConfig.openaiApiUrl;
+    this._openaipikey = ApiConfig.openaiApiKey;
+    this._ttsregion = ApiConfig.ttsRegion;
+    this._ttsapikey = ApiConfig.ttsApiKey;
 
     this._inProgress = false;
   }
@@ -40,7 +35,6 @@ export class AzureAi {
     const conversations = (document.getElementById("conversations") as any).value;
     LAppPal.printMessage(prompt);
     divSubtitle.setAttribute("style", "display: block;");
-    //txtSubtitle.innerText = prompt;
     txtSubtitle.innerHTML = `<span class=\"question-text\">${prompt}</span><br />`;
 
     const conversation = conversations + "\n\n## " + prompt
@@ -119,7 +113,6 @@ export class AzureAi {
     const audio: any = document.getElementById('voice');
     audio.src = url;
     LAppPal.printMessage(`Load Text to Speech url`);
-    //txtSubtitle.innerText += "\n" + text;
     txtSubtitle.innerHTML += `<span class=\"answer-text\">${text}</span>`;
     this._inProgress = false;
     return url;
