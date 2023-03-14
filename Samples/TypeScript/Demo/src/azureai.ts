@@ -40,7 +40,7 @@ export class AzureAi {
     const conversation = conversations + "\n\n## " + prompt
     const m = {
       "prompt": `##${conversation}\n\n`,
-      "max_tokens": 300,
+      "max_tokens": 3000,
       "temperature": 0,
       "frequency_penalty": 0,
       "presence_penalty": 0,
